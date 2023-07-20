@@ -89,16 +89,3 @@ class CICDStack(Stack):
             # Create role for the CodeBuild Project
             role=codebuild_role,
         )
-
-    
-
-        
-
-
-
-
-
-
-
-
-
