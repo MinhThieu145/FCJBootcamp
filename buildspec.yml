@@ -7,12 +7,6 @@ phases:
       - sudo apt update
       - sudo apt install hugo -y
 
-      # Install AWS CLI (if needed)
-      - pip install awscli --upgrade --user
-
-      # Set up AWS CLI configuration (optional if using IAM role)
-      - aws configure set default.region YOUR_REGION
-
   build:
     commands:
       # Function to translate large text using AWS Translate
