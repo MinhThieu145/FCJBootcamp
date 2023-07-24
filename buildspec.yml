@@ -6,6 +6,13 @@ phases:
       # Install Hugo on Ubuntu
       - sudo apt update
       - sudo apt install hugo -y
+
+      # Install AWS CLI (if needed)
+      - pip install awscli --upgrade --user
+
+      # Set up AWS CLI configuration (optional if using IAM role)
+      - aws configure set default.region YOUR_REGION
+
   build:
     commands:
       # Function to translate large text using AWS Translate
@@ -50,5 +57,9 @@ phases:
       # Get the S3 bucket name from environment variable
       - s3_bucket_name="$S3_BUCKET_NAME"
 
+      # Empty the bucket before pushing the new content
+      - aws s3 rm "s3://$s3_bucket_name/" --recursive
+
       # Upload everything (including content and public folders) to S3
-      - aws s3 sync . "s3://$s3_bucket_name/"
+      - aws s3 sync public/ "s3://$s3_bucket_name/"
+up
