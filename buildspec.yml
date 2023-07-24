@@ -50,9 +50,6 @@ phases:
 
           # Get the S3 bucket name from environment variable
           s3_bucket_name="$S3_BUCKET_NAME"
-
-          # Upload the translated file to S3
-          aws s3 cp "$translated_file" "s3://$s3_bucket_name/$translated_file"
         done
 
   post_build:
