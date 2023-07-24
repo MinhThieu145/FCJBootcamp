@@ -10,7 +10,6 @@ phases:
   build:
     commands:
       # Function to translate large text using AWS Translate
-      export translate_large_text
       - |
         translate_large_text() {
           local text="$1"
@@ -50,7 +49,7 @@ phases:
       - hugo
 
       # Get the S3 bucket name from environment variable
-      - s3_bucket_name="$S3_BUCKET_NAME"
+      - s3_bucket_name=$S3_BUCKET_NAME
 
       # Empty the bucket before pushing the new content
       - aws s3 rm "s3://$s3_bucket_name/" --recursive
