@@ -6,6 +6,10 @@ phases:
       # Install Hugo on Ubuntu
       - sudo apt update
       - sudo apt install hugo -y
+      # Switch to the content folder
+      - cd content
+
+
   build:
     commands:
       # Function to translate large text using AWS Translate
@@ -27,9 +31,6 @@ phases:
           cat "$temp_file"
           rm "$temp_file"
         }
-
-      # Switch to the content folder
-      - cd content
 
       # Traverse through folders and translate files using AWS Translate
       - |
