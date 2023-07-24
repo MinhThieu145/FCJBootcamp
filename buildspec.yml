@@ -61,4 +61,4 @@ phases:
       - s3_bucket_name="$S3_BUCKET_NAME"
 
       # Upload the content of the public folder to S3
-      - aws s3 sync "s3://$s3_bucket_name/"
+      - aws s3 sync . "s3://$s3_bucket_name/"
