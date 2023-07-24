@@ -8,9 +8,10 @@ phases:
   build:
     commands:
       # Traverse through folders and translate files using AWS Translate
-      - for file in $(find content -type f -name "_index.vi.md"); do
+      - |
+        for file in $(find content -type f -name "_index.vi.md"); do
           # Get the content of the Vietnamese file
-          content_vi=$(cat $file)
+          content_vi=$(cat "$file")
 
           # Translate the content to English
           content_en=$(aws translate translate-text --text "$content_vi" --source-language-code vi --target-language-code en --query 'TranslatedText' --output text)
@@ -27,17 +28,14 @@ phases:
         done
 
   post_build:
-    
     commands:
-      # build the site
+      # Build the site using Hugo
       - hugo
 
       # Upload the site to S3
 
       # Get the S3 bucket name from environment variable
       - s3_bucket_name="$S3_BUCKET_NAME"
+
+      # Upload the content of the public folder to S3
       - aws s3 sync public/ "s3://$s3_bucket_name/"
-
-
-
-    
