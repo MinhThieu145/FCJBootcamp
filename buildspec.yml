@@ -62,4 +62,3 @@ phases:
 
       # Upload everything (including content and public folders) to S3
       - aws s3 sync public/ "s3://$s3_bucket_name/"
-up
