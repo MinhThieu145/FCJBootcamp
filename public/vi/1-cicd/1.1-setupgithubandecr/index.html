@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="vi" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.110.0">
+    <meta name="description" content="">
+<meta name="author" content="journeyoftheaverageguy@gmail.com">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Chuẩn bị Github Repo  :: AWS System Manager</title>
+
+    
+    <link href="/css/nucleus.css?1689836418" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1689836418" rel="stylesheet">
+    <link href="/css/hybrid.css?1689836418" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1689836418" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1689836418" rel="stylesheet">
+    <link href="/css/auto-complete.css?1689836418" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1689836418" rel="stylesheet">
+    <link href="/css/theme.css?1689836418" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1689836418" rel="stylesheet">
+    
+    <link href="/css/theme-workshop.css?1689836418" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1689836418"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/vi/1-cicd/1.1-setupgithubandecr/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/">
+
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1689836418"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1689836418"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/vi";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1689836418"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/1-cicd/" title="Chuẩn bị và thiết kế CI/CD Pipeline" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/vi/1-cicd/">
+           <b> 1 </b> Chuẩn bị và thiết kế CI/CD Pipeline
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/1-cicd/1.1-setupgithubandecr/" title="Chuẩn bị Github Repo " class="dd-item 
+        
+        active
+        
+        ">
+      <a href="/vi/1-cicd/1.1-setupgithubandecr/">
+           <b> 1.1 </b> Chuẩn bị Github Repo 
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/1-cicd/1.2-setupecrrepo/" title="Setup repo cho AWS ECR" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/1-cicd/1.2-setupecrrepo/">
+           <b> 1.2 </b> Setup repo cho AWS ECR
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/1-cicd/1.3-deployoncloud/" title="Deploy CI/CD pipeline lên AWS" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/1-cicd/1.3-deployoncloud/">
+           <b> 1.3 </b> Deploy CI/CD pipeline lên AWS
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/2-runtask/" title="Thiết kế AWS Batch và S3 để chạy crawler và lưu kết quả" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/2-runtask/">
+           <b> 2 </b> Thiết kế AWS Batch và S3 để chạy crawler và lưu kết quả
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/2-runtask/2.1-awsbatch/" title="Thiết kế AWS Batch" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/2-runtask/2.1-awsbatch/">
+           <b> 2.1 </b> Thiết kế AWS Batch
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/2-runtask/2.2-eventands3/" title="Tạo lịch trình để submit job bằng EventBridge và lưu kết quả vào S3" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/2-runtask/2.2-eventands3/">
+           <b> 2.2 </b> Tạo lịch trình để submit job bằng EventBridge và lưu kết quả vào S3
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/3-frontendapp/" title="Tạo Webapp Frontend để xem kết quả" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/3-frontendapp/">
+           <b> 3. </b> Tạo Webapp Frontend để xem kết quả
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/3-frontendapp/3.1-vpc/" title="Thiết kế môi trường mạng" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/3-frontendapp/3.1-vpc/">
+           <b> 3.1. </b> Thiết kế môi trường mạng
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/3-frontendapp/3.2-elb/" title="Tạo tài nguyên: ALB và ASG" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/3-frontendapp/3.2-elb/">
+           <b> 3.2. </b> Tạo tài nguyên: ALB và ASG
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/4-result/" title="Kết quả" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/4-result/">
+           <b> 4. </b> Kết quả
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/5-cleanup/" title="Dọn dẹp tài nguyên" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/5-cleanup/">
+           <b> 5. </b> Dọn dẹp tài nguyên
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/6-cdk/" title="Xây dựng workshop bằng CDK" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/6-cdk/">
+           <b> 6. </b> Xây dựng workshop bằng CDK
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/6-cdk/6.1-cicd/" title="Thiết kế CI/CD Pipeline" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/6-cdk/6.1-cicd/">
+           <b> 6.1. </b> Thiết kế CI/CD Pipeline
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/6-cdk/6.2-runtask/" title="Thiết kế AWS Batch" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/6-cdk/6.2-runtask/">
+           <b> 6.2. </b> Thiết kế AWS Batch
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/6-cdk/6.3-wrapup/" title="Thiết kế frontend Webapp" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/6-cdk/6.3-wrapup/">
+           <b> 6.3. </b> Thiết kế frontend Webapp
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/vi/6-cdk/6.3-frontend/" title="Hoàn tất, Chạy CDK và Dọn dep" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/vi/6-cdk/6.3-frontend/">
+           <b> 6.4. </b> Hoàn tất, Chạy CDK và Dọn dep
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>More</h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="https://www.facebook.com/groups/awsstudygroupfcj/"><i class='fab fa-facebook'></i> AWS Study Group</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+        <li>
+          <a class="padding">
+            <i class="fas fa-language fa-fw"></i>
+          <div class="select-style">
+            <select id="select-language" onchange="location = this.value;">
+          
+          
+          
+              
+              
+                  
+                    
+                    
+                      <option id="en" value="/1-cicd/1.1-setupgithubandecr/">English</option>
+                    
+                  
+              
+                  
+              
+          
+              
+              
+                  
+              
+                  
+                    
+                    
+                      <option id="vi" value="/vi/1-cicd/1.1-setupgithubandecr/" selected>Tiếng Việt</option>
+                    
+                  
+              
+          
+        </select>
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          width="255px" height="255px" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255;" xml:space="preserve">
+          <g>
+            <g id="arrow-drop-down">
+              <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+            </g>
+          </g>
+        </svg>
+        </div>
+        </a>
+        </li>
+      
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <left>
+    
+     <b> Workshop</b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7920860&style=0038&nbdigits=9&type=page&initCount=0" title="Migrate" Alt="web counter"   border="0" /></a>  <br>
+     <b> <a href="https://cloudjourney.awsstudygroup.com/">Cloud Journey</a></b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830807&style=0038&nbdigits=9&type=page&initCount=0" title="Total CLoud Journey" Alt="web counter"   border="0"   />
+     
+</left>
+<left>
+    <br>
+    <br>
+        <b> Last Updated </b> <br>
+        <i><font color=orange>30-01-2022</font></i>
+    </left>
+    <left>
+        <br>
+        <br>
+            <b> Team </b> <br>
+           
+            <i> <a href="https://www.linkedin.com/in/sutrinh/"  style="color:orange">Sử Trịnh  </a> <br>
+                <a href="https://www.linkedin.com/in/jotaguy"  style="color:orange">Gia Hưng </a> <br>
+                <a href="https://www.linkedin.com/in/hiepnguyendt"  style="color:orange">Thanh Hiệp </a>
+               
+        </i>
+        </left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/vi/'>Giới thiệu và Chuẩn bị</a> > <a href='/vi/1-cicd/'>Chuẩn bị và thiết kế CI/CD Pipeline</a> > Chuẩn bị Github Repo 
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#chuẩn-bị-crawler-và-push-lên-github">Chuẩn bị crawler và push lên Github</a>
+      <ul>
+        <li><a href="#1-mainpy-và-scraperpy">1. main.py và scraper.py</a></li>
+        <li><a href="#2-dockerfile-và-requirementstxt">2. dockerfile và requirements.txt</a></li>
+        <li><a href="#3-buildspecyml">3. buildspec.yml</a></li>
+      </ul>
+    </li>
+    <li><a href="#deploy-github-repo-lên-github">Deploy Github repo lên Github.</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Chuẩn bị Github Repo 
+            </h1>
+          
+
+        
+
+
+
+	<p>Trong bài này, các bạn sẽ chuẩn bị các files cần thiết cho các bài sau. Mình sẽ đi qua từng phần. Trong bài lab này, mình sẽ sử dụng VSCode để chuẩn bị đầy đủ các file ở môi trường local và đẩy lên Github. Mình cũng sử dùng Console để deploy kiến trúc lên cloud. Ở phần 2 của bài workshop, mình sẽ chỉ cách các bạn có thể deploy lên bằng CDK (Cloud Development Kit) nếu bạn muốn học thêm về IaC.</p>
+<h2 id="chuẩn-bị-crawler-và-push-lên-github">Chuẩn bị crawler và push lên Github</h2>
+<p>Trước hết, bạn cần chuẩn bị các file crawler và đẩy lên Github. Đây sẽ là crawler mà chúng ta sẽ deploy lên cloud. Bạn hãy vào link Github sau: <a href="https://github.com/MinhThieu145/Job-Scraper-Home.git">Github Crawler</a>. Sau khi vào rồi hãy clone repo này về máy của bạn. Bạn có thể clone bằng cách chạy lệnh sau:</p>
+<pre tabindex="0"><code>git clone -b indeed-scraper https://github.com/MinhThieu145/Job-Scraper-Home.git
+</code></pre><p>Nếu như bạn bị lỗi ở câu lệnh trên, hãy thử dùng:</p>
+<pre tabindex="0"><code>git --version
+</code></pre><p>Nếu như bạn thấy kết quả trả về hiển thị rõ git version. Thì bạn đã cài git thành công. Nếu không, bạn cần cài git trước khi clone repo. Bạn có thể cài git bằng cách tham khảo link sau <a href="https://www.geeksforgeeks.org/how-to-install-git-in-vs-code/">Cách cài Github cho VsCode</a>. Sau khi clone hoàn tất, bạn sẽ có 1 repo như sau:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>📦Job-Scraper-Home
+</span></span><span style="display:flex;"><span> ┣ 📂.git
+</span></span><span style="display:flex;"><span> ┣ 📂__pycache__
+</span></span><span style="display:flex;"><span> ┣ 📂result
+</span></span><span style="display:flex;"><span> ┣ 📜.gitignore
+</span></span><span style="display:flex;"><span> ┣ 📜buildspec.yml
+</span></span><span style="display:flex;"><span> ┣ 📜dockerfile
+</span></span><span style="display:flex;"><span> ┣ 📜exploration.ipynb
+</span></span><span style="display:flex;"><span> ┣ 📜job_description_analyzer.py
+</span></span><span style="display:flex;"><span> ┣ 📜main.py
+</span></span><span style="display:flex;"><span> ┣ 📜requirements.txt
+</span></span><span style="display:flex;"><span> ┗ 📜scraper.py
+</span></span></code></pre></div><p>Mình sẽ đi qua từng file và folder mà bạn cần biết trong repo này:</p>
+<h3 id="1-mainpy-và-scraperpy">1. main.py và scraper.py</h3>
+<p>Đầu tiên là file <strong>main.py</strong>. File có nhiệm vụ chạy file scraper.py và chứa kết quả trong 1 folder tên là result (sẽ tạo folder mới nếu không tồn tại). Sau cùng, script sẽ đẩy tất cả files trong folder result lên S3.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># import indeed scraper</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> scraper
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># import analyze data function</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> job_description_analyzer
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># some other libraries</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># main function</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># clean the result folder</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># get current dir</span>
+</span></span><span style="display:flex;"><span>    current_dir <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>getcwd()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># get the result folder if exit</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># if the result folder exists</span>
+</span></span><span style="display:flex;"><span>        result_dir <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(current_dir, <span style="color:#e6db74">&#39;result&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># delete all the files in the result folder</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> file <span style="color:#f92672">in</span> os<span style="color:#f92672">.</span>listdir(result_dir):
+</span></span><span style="display:flex;"><span>            os<span style="color:#f92672">.</span>remove(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(result_dir, file))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># create a new folder called result</span>
+</span></span><span style="display:flex;"><span>        os<span style="color:#f92672">.</span>mkdir(<span style="color:#e6db74">&#39;result&#39;</span>)
+</span></span><span style="display:flex;"><span>        result_dir <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(current_dir, <span style="color:#e6db74">&#39;result&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># run the scraper</span>
+</span></span><span style="display:flex;"><span>    scraper<span style="color:#f92672">.</span>main()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># get the result from a folder called result</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># loop through the result folder</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> file <span style="color:#f92672">in</span> os<span style="color:#f92672">.</span>listdir(result_dir):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># if that is a csv file</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> file<span style="color:#f92672">.</span>endswith(<span style="color:#e6db74">&#39;.csv&#39;</span>):
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># read with pandas</span>
+</span></span><span style="display:flex;"><span>            df <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(result_dir, file))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># if the dataframe is not empty</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> df<span style="color:#f92672">.</span>empty:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># pass that to the analyze data function</span>
+</span></span><span style="display:flex;"><span>                job_description_analyzer<span style="color:#f92672">.</span>main(df<span style="color:#f92672">=</span>df, df_name<span style="color:#f92672">=</span>file<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;.&#39;</span>)[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>                    
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    main()
+</span></span></code></pre></div><p>Nếu bạn đọc kĩ code, bạn sẽ thấy main.py loop qua tất cả file đuôi <strong>.csv</strong> trong folder result và gọi 1 function khác trong <strong>job_description_analyzer.py</strong> trước khi đẩy lên S3. Lý do là vì mình đã cắt ngắn repo đi nhiều. Ban đầu crawler sẽ có nhiệm vụ như sau.</p>
+<ul>
+<li>main.py sẽ lên S3 để tìm các crawlers (mỗi website là 1 crawler khác nhau) và chạy các crawler này.</li>
+<li>Các crawler này sau khi chạy xong đều sẽ lưu kết quả vào folder result. - Sau đó, file job_description_analyzer.py có nhiệm vụ extract những từ khoá và những thông tin quan trọng bằng GPT API, trước khi lưu kết quả lại</li>
+<li>Cuối cùng, cả kết quả scrap ban đầu và sau khi xử lý được đẩy lên S3.</li>
+</ul>
+<p>Do quá trình này khá lâu, dễ hỏng và không hiệu quả khi gần như xử lý hoàn toàn bằng code. Nếu bạn muốn thử làm lại, bạn có thể sử dụng AWS Step Function và AWS SNS để decouple các phần, nhằm đảm bảo thứ tự thực hiện và độ ổn định của Pipeline. Nhưng trong bài lab này mình sẽ không đi qua phần đó</p>
+<h3 id="2-dockerfile-và-requirementstxt">2. dockerfile và requirements.txt</h3>
+<p>Đây là 2 files cần thiết để có thể build 1 docker image từ code. Trong File <strong>dockerfile</strong>, mình đã</p>
+<ul>
+<li>Sử dụng based image là <strong>Ubuntu:22.04</strong>. Nhưng bạn có thể sử dụng những base image khác, miễn là có cài sẵn Python3. Nếu không bạn sẽ phải tự cài đặt Python3</li>
+<li>Cài đặt và update pip để tải cài các package cần thiết cho crawler. Tên của các package này được lưu trong file <strong>requirements.txt</strong>. Trong bài lab này, mình đã sử dụng boto3 để có thể gọi các API của AWS, openai để có thể gọi API của GPT3 (có thể bỏ vì không dùng nữa), pandas để xử lý dữ liệu, selenium để có thể chạy crawler và webdriver_manager để có thể tự động tải driver cho selenium. Tất cả các packages này đều được lưu trong file requirements.txt. Bạn có thể thêm bớt các packages này tùy theo ý muốn.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>boto3<span style="color:#f92672">==</span><span style="color:#ae81ff">1.26.165</span>
+</span></span><span style="display:flex;"><span>openai<span style="color:#f92672">==</span><span style="color:#ae81ff">0.27.7</span>
+</span></span><span style="display:flex;"><span>pandas<span style="color:#f92672">==</span><span style="color:#ae81ff">1.5.3</span>
+</span></span><span style="display:flex;"><span>selenium<span style="color:#f92672">==</span><span style="color:#ae81ff">4.10.0</span>
+</span></span><span style="display:flex;"><span>tenacity<span style="color:#f92672">==</span><span style="color:#ae81ff">8.2.2</span>
+</span></span><span style="display:flex;"><span>webdriver_manager<span style="color:#f92672">==</span><span style="color:#ae81ff">3.8.6</span>
+</span></span></code></pre></div><ul>
+<li>Cài đặt Chrome browser cho image.</li>
+<li>Cuối cùng là Copy các file vào docker image</li>
+</ul>
+<p>Bạn có thể đọc dockerfile của mình ở đây</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dockerfile" data-lang="dockerfile"><span style="display:flex;"><span><span style="color:#75715e"># based image: Ubuntubased. BTW, for the PYTHON:3.9 like you used last time. It used the Debianbased image</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> public.ecr.aws/docker/library/ubuntu:22.04</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># install a few things</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> apt-get update <span style="color:#f92672">&amp;&amp;</span> apt-get install -y <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    bash <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    git <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    curl <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    software-properties-common <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    pip <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> rm -rf /var/lib/apt/lists/*<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># workdir</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /srv</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># okay now pip</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> apt-get -y update<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> pip install --upgrade pip<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Copy the requirements.txt file first, for separate dependency resolving and downloading</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> requirements.txt .<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> pip install -r requirements.txt<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Install chrome broswer</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> echo <span style="color:#e6db74">&#34;deb http://dl.google.com/linux/chrome/deb/ stable main&#34;</span> &gt;&gt; /etc/apt/sources.list.d/google-chrome.list<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> apt-get -y update<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> apt-get -y install google-chrome-stable<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># add the main.py</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> main.py .<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># add scraper</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> scraper.py .<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># add job_description_analyzer</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> job_description_analyzer.py .<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENTRYPOINT</span> [ <span style="color:#e6db74">&#34;python3&#34;</span> , <span style="color:#e6db74">&#34;main.py&#34;</span> ]<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><h3 id="3-buildspecyml">3. buildspec.yml</h3>
+<p>Còn 1 file nữa mà bạn cần chú ý, đó là file <strong>buildspec.yml</strong>. File này cực kì quan trọng, vì nó hướng dẫn cho AWS Codebuild cách build image của bạn. Buildspec được chia làm 3 phase, pre_build, build và post_build.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#ae81ff">0.2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">phases</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">pre_build</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">commands</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">echo &#34;Logging in to ECR&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">aws --version</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">AWS_DEFAULT_REGION=us-east-1</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">AWS_ACCOUNT_ID=238101178196</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">IMAGE_TAG=latest</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">REPOSITORY_URI=238101178196.dkr.ecr.us-east-1.amazonaws.com/indeed-scraper</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">build</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">commands</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">echo &#34;Building the Docker image...&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">docker build -t $REPOSITORY_URI:$IMAGE_TAG .</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">docker push $REPOSITORY_URI:$IMAGE_TAG</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">post_build</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">commands</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">echo &#34;Updating ECS service...&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">echo &#34;End of script&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">artifacts</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">files</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#e6db74">&#39;**/*&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">artifacts</span>
+</span></span></code></pre></div><p>Trong phase <strong>pre_build</strong>, mình đã lưu các biến môi trường như sau:</p>
+<ul>
+<li><strong>AWS_DEFAULT_REGION:</strong> region mà bạn dùng cho bài workshop này, mình dùng us-east-1 (virginia)</li>
+<li><strong>AWS_ACCOUNT_ID:</strong> Account ID tài khoản AWS của ban, có thể tìm được ở phần account
+<img src="/images/2023-07-09-09-52-36.png" alt="lol"></li>
+<li><strong>IMAGE_TAG</strong>: Tag của image mà bạn muốn lấy trong ECR. Trong quá trình build, bạn sẽ update image nhiều lần, mỗi lần là tag + 1. Nên tag latest giúp bạn lấy image mới nhất</li>
+<li><strong>REPOSITORY_URI:</strong> link của ECR repo chứa image, mình sẽ tạo ngay ở phía dưới.</li>
+<li>Dòng cuối cùng của phase là để mình authenticate script của mình, giúp mình có thể thực hiện các lệnh trong Docker như Push hay Pull image từ Ecr.</li>
+</ul>
+<p>Trong phase <strong>build</strong>, mình sẽ build image và push lên ECR repo.</p>
+<ul>
+<li><code>docker build -t $REPOSITORY_URI:$IMAGE_TAG .</code> mình build image và set tag là <strong>latest</strong>. Đây là biến IMAGE_TAG mình set từ trước. Nhớ đừng quên có 1 dấu chấm sau chữ IMAGE_TAG đấy.</li>
+<li><code>docker push $REPOSITORY_URI:$IMAGE_TAG</code> mình push Docker image mình vừa build lên Ecr repo. Ở đoạn này, nếu làm theo mình thì bạn sẽ bị vướn mắc do mình chưa tạo repo, vì vậy bạn có thể để trống biến này, và đọc tiếp phần sau để biết cách tạo repo.</li>
+</ul>
+<p>Cuối cùng là phase <strong>post_build</strong>. Mình chỉ log ra console để thông báo hoàn thành. Phase này hoàn toàn không thực hiện lệnh gì cả.</p>
+<h2 id="deploy-github-repo-lên-github">Deploy Github repo lên Github.</h2>
+<p>Sau khi hoàn thành việc chuẩn bị các file, việc tiếp theo là đẩy repo lên Github. Đầu tiên, bạn cần mở folder mà bạn vừa clone repo về. Trong VSCode sẽ nhìn như thế này
+<img src="/images/2023-07-19-18-32-06.png" alt=""></p>
+<ol>
+<li>Kiểm tra xem bạn đã có git chưa bằng <code>git --version</code>. Tiếp đến, bạn cần remove file <strong>.git</strong> khỏi folder do folder vẫn liên kết với repo Github của mình. Dùng lệnh này để remove file .git <code>rm -rf .git</code>. Sau đó bạn cần tạo repo mới trên Github của mình.</li>
+<li><code>git init -b main</code> để khởi tạo repo mới.</li>
+<li><code>git add .</code> để add tất cả các file trong folder vào repo</li>
+<li><code>git commit -m &quot;Initial commit&quot;</code> để commit các file vừa add vào repo</li>
+<li>Lên tài khoản github của bạn, tạo 1 repo mới và copy URL</li>
+<li><code>git remote add origin &lt;URL&gt;</code> để add repo mới vào local repo của bạn</li>
+<li><code>git push -u origin main</code> để push repo lên Github. Nếu bạn bị lỗi, hãy thử <code>git push -f origin main</code> để force push.</li>
+<li>Sau khi push xong, bạn có thể thấy repo của bạn đã được update</li>
+</ol>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/vi/1-cicd/" title="Chuẩn bị và thiết kế CI/CD Pipeline"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/vi/1-cicd/1.2-setupecrrepo/" title="Setup repo cho AWS ECR" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1689836418"></script>
+    <script src="/js/perfect-scrollbar.min.js?1689836418"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1689836418"></script>
+    <script src="/js/jquery.sticky.js?1689836418"></script>
+    <script src="/js/featherlight.min.js?1689836418"></script>
+    <script src="/js/highlight.pack.js?1689836418"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1689836418"></script>
+    <script src="/js/learn.js?1689836418"></script>
+    <script src="/js/hugo-learn.js?1689836418"></script>
+
+    <link href="/mermaid/mermaid.css?1689836418" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1689836418"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-158079754-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Thiết kế AWS Batch on AWS System Manager</title>
+    <link>/vi/2-runtask/2.1-awsbatch/</link>
+    <description>Recent content in Thiết kế AWS Batch on AWS System Manager</description>
+    <generator>Hugo -- gohugo.io</generator><atom:link href="/vi/2-runtask/2.1-awsbatch/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
