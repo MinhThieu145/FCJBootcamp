@@ -6,13 +6,6 @@ phases:
       # Install Hugo on Ubuntu
       - sudo apt update
       - sudo apt install hugo -y
-
-      # Install AWS CLI (if needed)
-      - pip install awscli --upgrade --user
-
-      # Set up AWS CLI configuration (optional if using IAM role)
-      - aws configure set default.region YOUR_REGION
-
   build:
     commands:
       # Function to translate large text using AWS Translate
@@ -35,9 +28,12 @@ phases:
           rm "$temp_file"
         }
 
+      # Switch to the content folder
+      - cd content
+
       # Traverse through folders and translate files using AWS Translate
       - |
-        for file in $(find content -type f -name "_index.vi.md"); do
+        for file in $(find . -type f -name "_index.vi.md"); do
           # Get the content of the Vietnamese file
           content_vi=$(cat "$file")
 
@@ -50,15 +46,21 @@ phases:
 
           # Get the S3 bucket name from environment variable
           s3_bucket_name="$S3_BUCKET_NAME"
+
+          # Upload the translated file to S3
+          aws s3 cp "$translated_file" "s3://$s3_bucket_name/$translated_file"
         done
+
+      # Switch back to the root folder
+      - cd ..
 
   post_build:
     commands:
-      # Build the Hugo project
+      # Build the Hugo project (in the root folder)
       - hugo
 
       # Get the S3 bucket name from environment variable
       - s3_bucket_name="$S3_BUCKET_NAME"
 
-      # Upload the content of the public folder to S3
+      # Upload everything (including content and public folders) to S3
       - aws s3 sync . "s3://$s3_bucket_name/"
