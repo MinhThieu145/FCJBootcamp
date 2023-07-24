@@ -10,6 +10,7 @@ phases:
   build:
     commands:
       # Function to translate large text using AWS Translate
+      export translate_large_text
       - |
         translate_large_text() {
           local text="$1"
