@@ -7,6 +7,12 @@ phases:
       - sudo apt update
       - sudo apt install hugo -y
 
+      # Install AWS CLI (if needed)
+      - pip install awscli --upgrade --user
+
+      # Set up AWS CLI configuration (optional if using IAM role)
+      - aws configure set default.region YOUR_REGION
+
   build:
     commands:
       # Function to translate large text using AWS Translate
@@ -30,7 +36,8 @@ phases:
         }
 
       # Traverse through folders and translate files using AWS Translate
-      - for file in $(find content -type f -name "_index.vi.md"); do
+      - |
+        for file in $(find content -type f -name "_index.vi.md"); do
           # Get the content of the Vietnamese file
           content_vi=$(cat "$file")
 
