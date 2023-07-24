@@ -6,10 +6,6 @@ phases:
       # Install Hugo on Ubuntu
       - sudo apt update
       - sudo apt install hugo -y
-      # Switch to the content folder
-      - cd content
-
-
   build:
     commands:
       # Function to translate large text using AWS Translate
@@ -32,32 +28,23 @@ phases:
           rm "$temp_file"
         }
 
-      # Traverse through folders and translate files using AWS Translate
+      # Translate and update the _index.md files in their respective locations
       - |
-        for file in $(find . -type f -name "_index.vi.md"); do
+        find content -type f -name "_index.vi.md" | while read -r file; do
           # Get the content of the Vietnamese file
           content_vi=$(cat "$file")
 
           # Translate the content to English
           content_en=$(translate_large_text "$content_vi" "en")
 
-          # Create the _index.md file with the translated content
+          # Create the _index.md file with the translated content in the same directory
           translated_file="${file%_index.vi.md}_index.md"
           echo "$content_en" > "$translated_file"
-
-          # Get the S3 bucket name from environment variable
-          s3_bucket_name="$S3_BUCKET_NAME"
-
-          # Upload the translated file to S3
-          aws s3 cp "$translated_file" "s3://$s3_bucket_name/$translated_file"
         done
-
-      # Switch back to the root folder
-      - cd ..
 
   post_build:
     commands:
-      # Build the Hugo project (in the root folder)
+      # Build the Hugo project
       - hugo
 
       # Get the S3 bucket name from environment variable
