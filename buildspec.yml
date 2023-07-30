@@ -23,4 +23,4 @@ phases:
       - aws s3 rm "s3://$s3_bucket_name/" --recursive
 
       # Upload everything (including content and public folders) to S3
-      - aws s3 sync . "s3://$s3_bucket_name/"
+      - aws s3 sync public/ "s3://$s3_bucket_name/"
