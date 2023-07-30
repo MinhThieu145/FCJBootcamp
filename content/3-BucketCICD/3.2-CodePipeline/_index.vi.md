@@ -70,6 +70,6 @@ Giải thích:
 
 8. Sau đó, chọn Continute to CodePipeline để quay lại Codepipeline. Chọn Next
 
-9. Bạn Skip Deploy Stage để sang phần review, rồi chọn Create pipeline
+9. Bạn Skip Deploy Stage để sang phần review, rồi chọn Create pipeline nhé
 
 
