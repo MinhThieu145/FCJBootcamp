@@ -26,7 +26,7 @@ pre : " <b> 3.2. </b> "
 
 ![](/images/2023-07-29-23-16-19.png)
 
-6. Ở phần Service Role, bạn cần CodeBuild có quyền để upload lên S3. Nên bạn cần quay lại IAM Role, Tạo 1 Role mới cho phép ghi vào S3
+6. Ở phần Service Role, bạn cần CodeBuild có quyền để upload lên S3. Nên bạn cần quay lại IAM Role, Tạo 1 Role mới cho phép ghi vào S3 và List Object nữa nhé (nếu được có thể để Full Access S3)
 
 ![](/images/2023-07-29-23-28-07.png)
 
