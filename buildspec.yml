@@ -1,0 +1,58 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      # Install Hugo on Ubuntu
+      - sudo apt update
+      - sudo apt install hugo -y
+
+  build:
+    commands:
+      # Function to translate large text using AWS Translate
+      - |
+        translate_large_text() {
+          local text="$1"
+          local target_lang="$2"
+          local temp_file="/tmp/translated_text_${RANDOM}.txt"
+
+          # Split the text into smaller chunks (up to 10,000 bytes) and translate each chunk
+          while [ ${#text} -gt 0 ]; do
+            local chunk="${text:0:10000}"
+            text="${text:10000}"
+
+            # Translate the chunk and append to the temporary file
+            aws translate translate-text --text "$chunk" --source-language-code vi --target-language-code "$target_lang" --query 'TranslatedText' --output text >> "$temp_file"
+          done
+
+          cat "$temp_file"
+          rm "$temp_file"
+        }
+
+      # Translate and update the _index.md files in their respective locations
+      - |
+        find content -type f -name "_index.vi.md" | while read -r file; do
+          # Get the content of the Vietnamese file
+          content_vi=$(cat "$file")
+
+          # Translate the content to English
+          content_en=$(translate_large_text "$content_vi" "en")
+
+          # Create the _index.md file with the translated content in the same directory
+          translated_file="${file%_index.vi.md}_index.md"
+          echo "$content_en" > "$translated_file"
+        done
+
+  post_build:
+    commands:
+      # Build the Hugo project
+      - hugo
+
+      # Get the S3 bucket name from environment variable
+      - s3_bucket_name=$S3_BUCKET_NAME
+
+      # Empty the bucket before pushing the new content
+      - aws s3 rm "s3://$s3_bucket_name/" --recursive
+
+      # Upload everything (including content and public folders) to S3
+      - aws s3 sync . "s3://$s3_bucket_name/"

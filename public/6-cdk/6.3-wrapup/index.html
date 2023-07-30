@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.110.0">
+    <meta name="description" content="">
+<meta name="author" content="journeyoftheaverageguy@gmail.com">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Frontend Webapp Design :: AWS System Manager</title>
+
+    
+    <link href="/css/nucleus.css?1690341069" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1690341069" rel="stylesheet">
+    <link href="/css/hybrid.css?1690341069" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1690341069" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1690341069" rel="stylesheet">
+    <link href="/css/auto-complete.css?1690341069" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1690341069" rel="stylesheet">
+    <link href="/css/theme.css?1690341069" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1690341069" rel="stylesheet">
+    
+    <link href="/css/theme-workshop.css?1690341069" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1690341069"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/6-cdk/6.3-wrapup/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/">
+
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1690341069"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1690341069"></script>
+<script type="text/javascript">
+    
+        var baseurl = "";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1690341069"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/1-cicd/" title="Preparation and design of CI/CD Pipeline" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/1-cicd/">
+           <b> 1 </b> Preparation and design of CI/CD Pipeline
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/1-cicd/1.1-setupgithubandecr/" title="Github Repo Preparation " class="dd-item 
+        
+        
+        
+        ">
+      <a href="/1-cicd/1.1-setupgithubandecr/">
+           <b> 1.1 </b> Github Repo Preparation 
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/1-cicd/1.2-setupecrrepo/" title="Setup repo cho AWS ECR" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/1-cicd/1.2-setupecrrepo/">
+           <b> 1.2 </b> Setup repo cho AWS ECR
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/1-cicd/1.3-deployoncloud/" title="Deploy CI/CD pipeline to AWS" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/1-cicd/1.3-deployoncloud/">
+           <b> 1.3 </b> Deploy CI/CD pipeline to AWS
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-runtask/" title="Designing AWS Batch and S3 to run crawlers and save results" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-runtask/">
+           <b> 2 </b> Designing AWS Batch and S3 to run crawlers and save results
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-runtask/2.1-awsbatch/" title="AWS Batch Design" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-runtask/2.1-awsbatch/">
+           <b> 2.1 </b> AWS Batch Design
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/2-runtask/2.2-eventands3/" title="Create a schedule to submit jobs using EventBridge and save the results to S3" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/2-runtask/2.2-eventands3/">
+           <b> 2.2 </b> Create a schedule to submit jobs using EventBridge and save the results to S3
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/3-frontendapp/" title="Create a Frontend Webapp to see the results" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/3-frontendapp/">
+           <b> 3. </b> Create a Frontend Webapp to see the results
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/3-frontendapp/3.1-vpc/" title="Network Environment Design" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/3-frontendapp/3.1-vpc/">
+           <b> 3.1. </b> Network Environment Design
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/3-frontendapp/3.2-elb/" title="Generate resources: ALB and ASG" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/3-frontendapp/3.2-elb/">
+           <b> 3.2. </b> Generate resources: ALB and ASG
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/4-result/" title="Results" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/4-result/">
+           <b> 4. </b> Results
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/5-cleanup/" title="Clean up resources" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/5-cleanup/">
+           <b> 5. </b> Clean up resources
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/6-cdk/" title="Building a workshop with CDK" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/6-cdk/">
+           <b> 6. </b> Building a workshop with CDK
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/6-cdk/6.1-cicd/" title="CI/CD Pipeline Design" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/6-cdk/6.1-cicd/">
+           <b> 6.1. </b> CI/CD Pipeline Design
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/6-cdk/6.2-runtask/" title="AWS Batch Design" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/6-cdk/6.2-runtask/">
+           <b> 6.2. </b> AWS Batch Design
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/6-cdk/6.3-wrapup/" title="Frontend Webapp Design" class="dd-item 
+        
+        active
+        
+        ">
+      <a href="/6-cdk/6.3-wrapup/">
+           <b> 6.3. </b> Frontend Webapp Design
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/6-cdk/6.3-frontend/" title="Complete, Run CDK and Clean dep" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/6-cdk/6.3-frontend/">
+           <b> 6.4. </b> Complete, Run CDK and Clean dep
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>More</h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="https://www.facebook.com/groups/awsstudygroupfcj/"><i class='fab fa-facebook'></i> AWS Study Group</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+        <li>
+          <a class="padding">
+            <i class="fas fa-language fa-fw"></i>
+          <div class="select-style">
+            <select id="select-language" onchange="location = this.value;">
+          
+          
+          
+              
+              
+                  
+                    
+                    
+                      <option id="en" value="/6-cdk/6.3-wrapup/" selected>English</option>
+                    
+                  
+              
+                  
+              
+          
+              
+              
+                  
+              
+                  
+                    
+                    
+                      <option id="vi" value="/vi/6-cdk/6.3-wrapup/">Tiếng Việt</option>
+                    
+                  
+              
+          
+        </select>
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          width="255px" height="255px" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255;" xml:space="preserve">
+          <g>
+            <g id="arrow-drop-down">
+              <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+            </g>
+          </g>
+        </svg>
+        </div>
+        </a>
+        </li>
+      
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <left>
+    
+     <b> Workshop</b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7920860&style=0038&nbdigits=9&type=page&initCount=0" title="Migrate" Alt="web counter"   border="0" /></a>  <br>
+     <b> <a href="https://cloudjourney.awsstudygroup.com/">Cloud Journey</a></b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830807&style=0038&nbdigits=9&type=page&initCount=0" title="Total CLoud Journey" Alt="web counter"   border="0"   />
+     
+</left>
+<left>
+    <br>
+    <br>
+        <b> Last Updated </b> <br>
+        <i><font color=orange>30-01-2022</font></i>
+    </left>
+    <left>
+        <br>
+        <br>
+            <b> Team </b> <br>
+           
+            <i> <a href="https://www.linkedin.com/in/sutrinh/"  style="color:orange">Sử Trịnh  </a> <br>
+                <a href="https://www.linkedin.com/in/jotaguy"  style="color:orange">Gia Hưng </a> <br>
+                <a href="https://www.linkedin.com/in/hiepnguyendt"  style="color:orange">Thanh Hiệp </a>
+               
+        </i>
+        </left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Introduction and Preparation</a> > <a href='/6-cdk/'>Building a workshop with CDK</a> > Frontend Webapp Design
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#network-infrastructure-design">Network Infrastructure Design</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#create-bastion-host">Create Bastion Host</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Frontend Webapp Design
+            </h1>
+          
+
+        
+
+
+
+	<p>In my opinion, this is the hardest part of all three parts when working with CDK. The reason is because this part is very long. Here&rsquo;s an overview of what we&rsquo;re going to do in this section:</p>
+<h2 id="network-infrastructure-design">Network Infrastructure Design</h2>
+<p>The code below creates a VPC with 2 subnets, 1 public and 1 private. When creating a public subnet with code, AWS routes itself to the Internet Gateway for itself. And when creating a Private Subnet of the type <code>PRIVATE_WITH_NAT</code>, AWS creates its own NAT Gateway.</p>
+<p>``python</p>
+<h1 id="create-vpc">Create VPC</h1>
+<p>vpc = ec2. Vpc (
+scope=self,
+id=&lsquo;CdkJobScrapingFrontEnd&rsquo;,
+vpc_name=f&rsquo; {VPC_NAME} &lsquo;,</p>
+<h1 id="set-the-cidr-for-the-vpc">set the CIDR for the VPC</h1>
+<p>cidr= &lsquo;10.0.0.0/16&rsquo;,</p>
+<h1 id="enable-dns-support">enable DNS support</h1>
+<p>enable_dns_support=True,</p>
+<h1 id="setup-2-subnet">setup 2 subnet</h1>
+<p>subnet_configuration= [</p>
+<h1 id="public-subnet">public subnet</h1>
+<p>ec2. SubNetConfiguration (
+name=&ldquo;CDKjobScrapingFrontendPublic”,
+subnet_type=ec2. Subnettype.public,
+cidr_mask=24,
+),</p>
+<h1 id="private-subnet-with-nat">private subnet with NAT</h1>
+<p>ec2. SubNetConfiguration (
+name=&ldquo;CDKjobScrapingFrontendPrivate”,
+subnet_type=ec2. subnettype.private_with_nat,
+cidr_mask=24,
+),
+],</p>
+<p>)</p>
+<pre tabindex="0"><code>
+## Creating Security Groups for EC2 Instances and Bastion Hosts
+``python
+# +++ Create EC2 +++
+
+# create a security group for the ec2 private instance
+private_ec2_security_group=ec2. SecurityGroup (
+scope=self,
+id=&#34;CDKjobScrapingFrontendSecurityGroup”,
+vpc=vpc,
+allow_all_outbound=True,
+description=&#34;Security Group for the EC2 private instance”,
+security_group_name=&#34;CDK-Jobscraping-frontend-private-SG”,
+            
+)
+
+# add the rules to the security group, open custom TPC port 8501
+private_ec2_security_group.add_ingress_rule (
+peer=ec2. Peer.any_IPv4 (),
+connection=ec2. Port.TCP (8501),
+Description=&#34;Allow inbound traffic from anywhere for port 8501&#34;,
+)
+
+# add ssh port 22 for SG for the EC2 private instance
+private_ec2_security_group.add_ingress_rule (
+peer=ec2. Peer.any_IPv4 (),
+connection=ec2. Port.TCP (22),
+description=&#34;Allow inbound traffic from anywhere for port 22&#34;,
+)
+
+
+# create security group for bastion host
+bastion_security_group=ec2. SecurityGroup (
+scope=self,
+id=&#34;CDKjobScrapingFrontendBastionSecurityGroup”,
+vpc=vpc,
+allow_all_outbound=True,
+description=&#34;Security Group for the bastion host”,
+security_group_name=&#34;CDK-Jobscraping-frontend-bastion-SG”,
+            
+)
+
+# add the rules to the security group, open SSH port 22
+bastion_security_group.add_ingress_rule (
+peer=ec2. Peer.any_IPv4 (),
+connection=ec2. Port.TCP (22),
+description=&#34;Allow inbound traffic from anywhere for port 22&#34;,
+)
+</code></pre><h2 id="create-bastion-host">Create Bastion Host</h2>
+<p>Note: Since I can&rsquo;t find a way to download the pem key when using CDK, you will have to create a pem key and save the name in the environment variable.
+``python</p>
+<h1 id="create-a-bastion-host">create a bastion host</h1>
+<h1 id="ami-for-bastion-host">AMI for bastion host</h1>
+<p>ami_bastion_host = ec2. Machineimage.generic_Linux (
+{
+“us-east-1&rdquo;:&rdquo; ami-053b0d53c279acc90&quot;
+}
+)</p>
+<h1 id="dont-forget-that-you-will-need-to-create-a-key-pair-in-the-aws-console-because-you-couldnt-access-it-latter-if-create-here">DON&rsquo;T FORGET THAT YOU WILL NEED TO CREATE A KEY PAIR IN THE AWS CONSOLE (BECAUSE YOU COULDN&rsquo;T ACCESS IT LATTER IF CREATE HERE)</h1>
+<p>bastion_host = ec2. Instance (
+scope=self,
+id=&ldquo;CDKjobScrapingFrontendBastionHost”,
+instance_type=ec2. InstanceType (“t2.micro”),
+machine_image=ec2. MachineImage.Latest_Amazon_Linux (
+generation=ec2. AmazonLinuxGeneration.Amazon_Linux_2
+),
+vpc=vpc,
+vpc_subnets=ec2. SubnetSelection (
+subnet_type=ec2. Subnettype.public
+),
+security_group=bastion_security_group,
+key_name=f&rsquo; {KEY_NAME} &lsquo;,
+instance_name=&lsquo;cdkjobscrapingfrontendbastionhost&rsquo;,
+)</p>
+<pre tabindex="0"><code>
+## Create ASG and ALB
+
+In the code below, I have:
+  
+- Create a role for ASG
+- Create a Launch Instance. You need to assign a pem key if you want to access the instance later. Launch instances also need SG. Also, you need to assign user data to the launch template.
+- Create ASG
+- Create ALP
+- Create Target Group and assign ASG to Target Group
+
+``python
+
+# +++ Create Load Balancer and Auto Scaling Group +++
+
+# But first, we will need 2 things
+#1. Create an AMI that has all the packages installed
+#3. Create a Role for ASG
+
+# Since the first steps would be done in console, I&#39;ll do the 3rd step here
+        
+# Create a role for ASG
+Role = iam.Role (
+scope=self,
+id=&#39;CdkJobScrapingFrontEndrole&#39;,
+assumed_by=Iam.servicePrincipal (&#39;ec2.amazonaws.com&#39;),
+role_name=&#39;cdkjobscrapingfrontendrole&#39;,
+managed_policies= [
+# Read access to EC2
+IAM.ManagedPolicy.From_AWS_Managed_Policy_Name (&#39;Amazonec2ReadOnlyAccess&#39;),
+
+# Full access to S3
+IAM.managedpolicy.from_aws_managed_policy_name (&#39;AmazonS3fullAccess&#39;),
+
+]]
+)
+
+
+# Okay, now let&#39;s move on to create the Load Balancer and Auto Scaling Group
+
+
+# Create Launch Template. Don&#39;t Forget a Key Pair
+launch_template=ec2. LaunchTemplate (
+scope=self,
+id=&#39;CdkJobScrapingFrontEndLaunchTemplate&#39;,
+launch_template_name=&#39;cdkjobscrapingfrontendLaunchtemplate&#39;,        
+
+# set the machine image from the AMI that we created
+machine_image=ec2. Machineimage.generic_Linux (
+{
+“us-east-1&#34;:f&#39; {AMI} &#39;
+}
+),
+
+# set the instance type
+instance_type=ec2. InstanceType (“t2.micro”),
+
+# set the key pair
+key_name=f&#39; {KEY_NAME} &#39;,
+
+# set the security group
+security_group=private_ec2_security_group,
+
+# set the role
+role=role,
+
+# set the block device mapping: use AMI block device mapping
+user_data=ec2. UserData.custom (         
+“&#39;Content-Type: multipart/mixed; boundary=”//”
+Mime-Version: 1.0
+
+--//
+Content-Type: text/cloud-config; charset=&#34;us-ascii”
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=” cloud-config.txt”
+
+#cloud -config
+cloud_final_modules:
+- [scripts-user, always]
+
+--//
+Content-Type: text/x-shellscript; charset=&#34;us-ascii”
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename=” userdata.txt”
+
+#! /bin/bash
+
+# Run the app.py script
+cd /home/ubuntu/
+
+sudo streamlit run streamlit-app.py &gt; output.txt 2&gt;&amp;1
+
+--//--&#34;&#39;
+),
+)
+
+
+# Create Auto Scaling Group
+auto_scaling_group = autoscaling.autoscalingGroup (
+scope=self,
+vpc=vpc,
+id=&#39;CdkJobScrapingFrontEndAutoScalingGroup&#39;,
+
+                        
+
+# set the name for the Auto Scaling Group
+auto_scaling_group_name=&#39;cdkjobscrapingfrontendautoscalinggroup&#39;,
+
+# set launch template
+launch_template = launch_template,
+                
+# VPC private subnet
+vpc_subnets=ec2. SubnetSelection (
+subnet_type=ec2. SubnetType.Private_With_NAT # current we have only 2 private sbunet, so can use this to select all
+),
+
+# set the min, max, and desired capacity
+min_capacity=0,
+max_capacity=2,
+desired_capacity=1,
+
+            
+
+)
+        
+# create a load balancer
+load_balancer = elbv2. ApplicationLoadBalancer (
+scope=self,
+id=&#39;CdkJobScrapingFrontEndLoadBalancer&#39;,
+vpc=vpc,
+Internet_facing=True,
+load_balancer_name=&#39;cdkjobscrapingfrontendlb&#39;,
+security_group=private_ec2_security_group,
+)
+
+# create a target group that targets to the Auto Scaling Group
+
+target_group=elbv2. ApplicationTargetGroup (
+scope=self,
+id=&#39;CdkJobScrapingFrontEndTargetGroup&#39;,
+vpc=vpc,
+port=8501,
+protocol=elbv2. ApplicationProtocol.http,
+targets= [auto_scaling_group],
+target_group_name=&#39;cdkjobscrapingfrontendtg&#39;,
+)    
+
+            
+# create a listener that listeners to the target group
+listener = load_balancer.add_listener (
+id=&#39;CdkJobScrapingFrontEndListEner&#39;,
+port=8501,
+protocol=elbv2. ApplicationProtocol.http,
+open=True,
+default_target_groups= [target_group],
+)
+</code></pre>
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/6-cdk/6.2-runtask/" title="AWS Batch Design"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/6-cdk/6.3-frontend/" title="Complete, Run CDK and Clean dep" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1690341069"></script>
+    <script src="/js/perfect-scrollbar.min.js?1690341069"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1690341069"></script>
+    <script src="/js/jquery.sticky.js?1690341069"></script>
+    <script src="/js/featherlight.min.js?1690341069"></script>
+    <script src="/js/highlight.pack.js?1690341069"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1690341069"></script>
+    <script src="/js/learn.js?1690341069"></script>
+    <script src="/js/hugo-learn.js?1690341069"></script>
+
+    <link href="/mermaid/mermaid.css?1690341069" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1690341069"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-158079754-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>
