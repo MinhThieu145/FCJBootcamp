@@ -59,7 +59,7 @@ phases:
         - aws s3 rm "s3://$s3_bucket_name/" --recursive
 
       # Upload public folder to S3
-        - aws s3 cp public/ "s3://$s3_bucket_name/" --recursive
+        - aws s3 cp public/ "s3://your-s3-bucket-name/" --recursive --exclude "public/*" --include "public/*.*"
 
 ```
 
